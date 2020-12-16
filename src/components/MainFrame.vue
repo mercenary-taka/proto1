@@ -5,26 +5,24 @@
       height="30"
       show-arrows
     >
+    <v-tabs-slider></v-tabs-slider>
       <v-tab
         v-for="n in length"
         :key="n"
-        :href="'#tab-' + n"
       >
         〇〇〇〇〇〇画面 {{ n }}
       </v-tab>
     </v-tabs>
+    <keep-alive>
     <v-tabs-items v-model="tab">
       <v-tab-item
         v-for="n in length"
         :key="n"
-        >
-        <v-card>
-        <v-card-text>
-          tabpage {{ n }}
-        </v-card-text>
-        </v-card>
+        > 
+        {{ n }}
       </v-tab-item>
     </v-tabs-items>
+    </keep-alive>
     <v-card-text class="text-center">
       <v-btn
         :disabled="!length"

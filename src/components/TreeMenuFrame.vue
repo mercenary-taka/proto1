@@ -2,17 +2,35 @@
   <v-navigation-drawer
     app
     clipped
-    :value="isMenuShow"
+    :value="isShowMenu"
     v-on:transitionend="menuVisibility($event)"
+    width="350"
   >
+    <v-sheet class="pa-2">
+      <v-text-field
+        v-model="search"
+        label="名前で検索"
+        flat
+        solo-inverted
+        hide-details
+        clearable
+        prepend-inner-icon="mdi-magnify"
+        clear-icon="mdi-close-circle-outline"
+      ></v-text-field>
+    </v-sheet>
     <v-treeview
       v-model="tree"
       :open="initiallyOpen"
       :items="items"
-      activatable
+      :search="search"
+      :filter="filter"
       item-key="name"
+      v-on:update:active="selectWindow"
       open-on-click
       dense
+      hoverable
+      activatable
+      return-object
     >
       <template v-slot:prepend="{ item, open }">
         <v-icon v-if="!item.file">
@@ -29,8 +47,14 @@
 import { mapGetters } from "vuex";
 
 export default {
-  computed: mapGetters(["isMenuShow"]),
+  computed: {
+    ...mapGetters(["isShowMenu"]),
+  },
   methods: {
+    selectWindow: function (e) {
+      console.log(e[0].name)
+
+    },
     menuVisibility: function (el) {
       if (el.propertyName === "visibility") {
         var eventClass = el.target.className;
@@ -65,58 +89,101 @@ export default {
     tree: [],
     items: [
       {
-        name: ".git",
-      },
-      {
-        name: "node_modules",
-      },
-      {
-        name: "public",
+        name: "株式会社エクサ",
         children: [
           {
-            name: "static",
+            name: "個人情報",
             children: [
               {
-                name: "logo.png",
-                file: "png",
+                name: "個人情報",
+                children: [
+                  {
+                    name: "個人情報参照",
+                    children: [
+                      {
+                        name: "氏名検索",
+                        file: "png",
+                        winCd: "KAZ0101",
+                        pgmCd: "KAZ0101",
+                      },
+                      {
+                        name: "個別検索",
+                        file: "png",
+                        winCd: "KAZ0102",
+                        pgmCd: "KAZ0102",
+                      },
+                    ],
+                  },
+                  {
+                    name: "個人情報更新",
+                    children: [
+                      {
+                        name: "社員属性更新",
+                        file: "png",
+                        winCd: "KAZ0501",
+                        pgmCd: "KAZ0511",
+                      },
+                      {
+                        name: "本人属性更新",
+                        file: "png",
+                        winCd: "KAZ0601",
+                        pgmCd: "KAZ0611",
+                      },
+                    ],
+                  },
+                ],
               },
             ],
           },
           {
-            name: "favicon.ico",
-            file: "png",
-          },
-          {
-            name: "index.html",
-            file: "html",
+            name: "賃金共通",
+            children: [
+              {
+                name: "月例賃金管理",
+                children: [
+                  {
+                    name: "賃金管理",
+                    children: [
+                      {
+                        name: "賃金基本更新",
+                        file: "png",
+                        winCd: "CDA0101",
+                        pgmCd: "CDA0111",
+                      },
+                      {
+                        name: "賃金台帳",
+                        file: "png",
+                        winCd: "CDS0101",
+                        pgmCd: "CDS0101",
+                      },
+                    ],
+                  },
+                  {
+                    name: "マスター管理",
+                    children: [
+                      {
+                        name: "月俸",
+                        file: "png",
+                        winCd: "ZZZ0103",
+                        pgmCd: "CDAM001",
+                      },
+                      {
+                        name: "役職手当",
+                        file: "png",
+                        winCd: "ZZZ0103",
+                        pgmCd: "CDAM002",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
           },
         ],
       },
-      {
-        name: ".gitignore",
-        file: "txt",
-      },
-      {
-        name: "babel.config.js",
-        file: "js",
-      },
-      {
-        name: "package.json",
-        file: "json",
-      },
-      {
-        name: "README.md",
-        file: "md",
-      },
-      {
-        name: "vue.config.js",
-        file: "js",
-      },
-      {
-        name: "yarn.lock",
-        file: "txt",
-      },
     ],
+    search: null,
+    filter: null,
   }),
 };
 </script>

@@ -14,7 +14,7 @@
 <script>
 import TreeMenuFrame from "./components/TreeMenuFrame";
 import MainFrame from "./components/MainFrame";
-import FusionToolBar from './components/FusionToolBar.vue';
+import FusionToolBar from './components/FusionToolBar';
 
 export default {
   name: "App",

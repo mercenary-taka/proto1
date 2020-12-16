@@ -10,7 +10,7 @@ export default new Vuex.Store({
     showMenu: true
   },
   getters: {
-    isMenuShow(state) {
+    isShowMenu(state) {
       return state.showMenu
     }
   },
