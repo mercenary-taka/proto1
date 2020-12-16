@@ -4,8 +4,21 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  strict: true,
+  state: {
+    // メニュー表示制御
+    showMenu: true
+  },
+  getters: {
+    isMenuShow(state) {
+      return state.showMenu
+    }
+  },
+  mutations: {
+    showMenu(state) {
+      state.showMenu = !state.showMenu
+    }
+  },
   actions: {},
   modules: {}
 });
