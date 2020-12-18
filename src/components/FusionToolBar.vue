@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app clipped-left>
+  <v-app-bar app clipped-left dense>
       <div class="d-flex align-center">
         <v-img
           class="shrink mr-2"

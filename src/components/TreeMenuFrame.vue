@@ -48,13 +48,38 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["isShowMenu"]),
+    ...mapGetters(["isShowMenu", "getMainFrameTabs"]),
   },
   methods: {
+    /**
+     * ツリーメニューで画面を選択したときの処理
+     *
+     **/
     selectWindow: function (e) {
-      console.log(e[0].name)
+      // 既に開いている画面か確認
+      var frameArray = this.$store.getters.getMainFrameTabs;
+      var selectPgmCd = e[0].pgmCd;
+      var selectNo = -1;
+      for (let index = 0; index < frameArray.length; index++) {
+        const element = frameArray[index];
+        if (selectPgmCd === element.pgmCd) {
+          selectNo = index;
+          break;
+        }
+      }
 
+      if (selectNo === -1) {
+        // 開いていない画面の場合はvuexストアに画面を追加
+        this.$store.commit("addMainFrameTabs", e[0]);
+        selectNo = frameArray.length - 1;
+      }
+
+      // ツリーメニューを閉じる
+      this.$store.commit("showMenu");
+      // 開いた画面を選択表示する
+      this.$root.$emit("selectMainFramePage", selectNo);
     },
+
     menuVisibility: function (el) {
       if (el.propertyName === "visibility") {
         var eventClass = el.target.className;
