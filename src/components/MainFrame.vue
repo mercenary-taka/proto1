@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-tabs v-model="tab" height="40" show-arrows>
+    <v-tabs v-model="tab" height="40" show-arrows @change="frameTabChange($event)">
       <v-tabs-slider></v-tabs-slider>
       <v-tab
         v-for="item in this.$store.state.mainFrameTabs"
@@ -32,6 +32,7 @@
           画面名は{{ item.name }}です。<br />
           winCdは{{ item.winCd }}です。<br />
           pgmCdは{{ item.pgmCd }}です。<br />
+          <router-view v-bind:name="item.winCd"></router-view>
         </v-tab-item>
       </v-tabs-items>
     </keep-alive>
@@ -49,6 +50,13 @@ export default {
     });
   },
   methods: {
+    /**
+     * ユーザ操作によってタブが変更されたとき
+     * 引数：選択したタブページ（0から始まる）
+     */
+    frameTabChange: function(tabPageNo) {
+console.log("tabChange=" + tabPageNo);
+    },
     selectMainFramePage: function (i) {
       this.tab = i;
     },

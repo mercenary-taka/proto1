@@ -20,10 +20,10 @@
     </v-sheet>
     <v-treeview
       v-model="tree"
-      :open="initiallyOpen"
       :items="items"
       :search="search"
       :filter="filter"
+      :active.sync="active"
       item-key="name"
       v-on:update:active="selectWindow"
       open-on-click
@@ -32,6 +32,7 @@
       activatable
       return-object
     >
+    
       <template v-slot:prepend="{ item, open }">
         <v-icon v-if="!item.file">
           {{ open ? "mdi-folder-open" : "mdi-folder" }}
@@ -40,6 +41,7 @@
           {{ files[item.file] }}
         </v-icon>
       </template>
+      
     </v-treeview>
   </v-navigation-drawer>
 </template>
@@ -56,6 +58,10 @@ export default {
      *
      **/
     selectWindow: function (e) {
+
+      if (!e || e.length === 0) {
+        return;
+      }
       // 既に開いている画面か確認
       var frameArray = this.$store.getters.getMainFrameTabs;
       var selectPgmCd = e[0].pgmCd;
@@ -78,6 +84,8 @@ export default {
       this.$store.commit("showMenu");
       // 開いた画面を選択表示する
       this.$root.$emit("selectMainFramePage", selectNo);
+      // ツリーの選択状態を解除
+      this.active.pop();
     },
 
     menuVisibility: function (el) {
@@ -100,16 +108,11 @@ export default {
     },
   },
   data: () => ({
-    initiallyOpen: ["public"],
+    search: null,
+    filter: null,
+    active: [],
     files: {
-      html: "mdi-language-html5",
-      js: "mdi-nodejs",
-      json: "mdi-code-json",
-      md: "mdi-language-markdown",
-      pdf: "mdi-file-pdf",
       png: "mdi-file-image",
-      txt: "mdi-file-document-outline",
-      xls: "mdi-file-excel",
     },
     tree: [],
     items: [
@@ -207,8 +210,6 @@ export default {
         ],
       },
     ],
-    search: null,
-    filter: null,
   }),
 };
 </script>
