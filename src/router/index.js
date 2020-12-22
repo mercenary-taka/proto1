@@ -1,8 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 //import Home from "../views/Home.vue";
-import Kaz0101 from "../components/frame/kaz/Kaz0101.vue";
-import Kaz0102 from "../components/frame/kaz/Kaz0102.vue";
 
 Vue.use(VueRouter);
 
@@ -24,9 +22,11 @@ const routes = [
   {
     path: "/",
     name: "window",
+    props: true,
     components: {
-      KAZ0101: Kaz0101,
-      KAZ0102: Kaz0102
+      KAZ0101: () => import("../components/frame/kaz/Kaz0101.vue"),
+      KAZ0102: () => import("../components/frame/kaz/Kaz0102.vue"),
+      ZZZ0103: () => import("../components/frame/zzz/Zzz0103.vue"),
     }
 
   }

@@ -1,11 +1,13 @@
 <template>
   <v-card>
-    <v-tabs v-model="tab" height="40" show-arrows @change="frameTabChange($event)">
+    <v-tabs
+      v-model="tab"
+      height="40"
+      show-arrows
+      @change="frameTabChange($event)"
+    >
       <v-tabs-slider></v-tabs-slider>
-      <v-tab
-        v-for="item in this.$store.state.mainFrameTabs"
-        :key="item.pgmCd"
-      >
+      <v-tab v-for="item in this.$store.state.mainFrameTabs" :key="item.pgmCd">
         {{ item.pgmCd }} {{ item.name }}
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
@@ -29,10 +31,10 @@
           :key="item.pgmCd"
           eager
         >
-          画面名は{{ item.name }}です。<br />
-          winCdは{{ item.winCd }}です。<br />
-          pgmCdは{{ item.pgmCd }}です。<br />
-          <router-view v-bind:name="item.winCd"></router-view>
+<!--          画面名は{{ item.name }}です。winCdは{{ item.winCd }}です。pgmCdは{{
+            item.pgmCd
+          }}です。<br />-->
+          <router-view :name="item.winCd"></router-view>
         </v-tab-item>
       </v-tabs-items>
     </keep-alive>
@@ -51,11 +53,11 @@ export default {
   },
   methods: {
     /**
-     * ユーザ操作によってタブが変更されたとき
+     * ユーザ操作によって選択タブが変更されたとき
      * 引数：選択したタブページ（0から始まる）
      */
-    frameTabChange: function(tabPageNo) {
-console.log("tabChange=" + tabPageNo);
+    frameTabChange: function (tabPageNo) {
+      console.log("tabChange=" + tabPageNo);
     },
     selectMainFramePage: function (i) {
       this.tab = i;

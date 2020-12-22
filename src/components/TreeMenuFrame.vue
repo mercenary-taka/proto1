@@ -117,7 +117,7 @@ export default {
     tree: [],
     items: [
       {
-        name: "株式会社エクサ",
+        name: "テスト会社",
         children: [
           {
             name: "個人情報",
