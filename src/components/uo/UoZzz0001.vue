@@ -7,10 +7,7 @@
         dense
         outlined
         v-model="fpo[0]"
-        ><template v-slot:prepend>
-          {{ ocBean.text }}
-        </template></v-select
-      >
+      ></v-select>
     </div>
     <div v-else-if="ocBean.uoType === 'B1'">
       <v-menu
@@ -32,10 +29,7 @@
             v-on="on"
             dense
             outlined
-            ><template v-slot:prepend>
-              {{ ocBean.text }}
-            </template></v-text-field
-          >
+          ></v-text-field>
         </template>
         <v-date-picker
           v-model="date"
@@ -54,25 +48,19 @@
         @keydown.enter="enterkeyDown"
         v-model="fpo[0]"
         outlined
-        ><template v-slot:prepend>
-          {{ ocBean.text }}
-        </template></v-text-field
-      >
+      ></v-text-field>
     </div>
     <div v-else-if="ocBean.uoType === 'D1'">
-      <v-text-field
-        outlined
-        :label="ocBean.text"
-        prepend-icon="mdi-star"
-        dense
-        clearable
-        @click.right.prevent="rightClick"
-        @keydown.enter="enterkeyDown"
-        v-model="fpo[0]"
-        ><template v-slot:prepend>
-          {{ ocBean.text }}
-        </template></v-text-field
-      >
+        <v-text-field
+          outlined
+          :label="ocBean.text"
+          prepend-icon="mdi-star"
+          clearable
+          @click.right.prevent="rightClick"
+          @keydown.enter="enterkeyDown"
+          v-model="fpo[0]"
+          dense
+        ></v-text-field>
     </div>
   </div>
 </template>
@@ -132,3 +120,12 @@ export default {
   },
 };
 </script>
+<style>
+.v-text-field .v-input__control .v-input__slot {
+  min-height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 32px !important;
+  font-size: 0.9rem !important;
+}
+</style>

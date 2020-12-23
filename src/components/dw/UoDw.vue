@@ -63,7 +63,6 @@ export default {
           // これを呼ばないとcolumnDefが反映されません。
           //this.gridApi.sizeColumnsToFit(); 
 
-          console.log('gridReady is called.'); 
         },
       },
   }),
@@ -75,9 +74,14 @@ export default {
     ];
   },
   methods: {
+      /**
+       * データが変更されたときに呼ばれる
+       * 引数：全データ
+       * ※どのデータが変更されたかはこのメソッドでは判別できない。
+       */
     dataModelChanged(rowData) {
         console.log("dataModelChanged");
-      console.log(rowData);
+        console.log(rowData);
     },
   },
 };

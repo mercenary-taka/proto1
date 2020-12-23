@@ -1,11 +1,8 @@
 <template>
   <div>
-      <v-text-field
-      readonly
-      dense
-      outlined
-      :value="ocBean.text"
-      ></v-text-field>
+    <v-chip color="yellow lighten-3">
+      {{ ocBean.text }}
+    </v-chip>
   </div>
 </template>
 <script>
