@@ -8,6 +8,7 @@
             page="0"
             :ocBean="uo5ocbean"
             key="uo_5"
+            ref="uo_5"
           ></UoZzz0003>
         </v-col>
       </v-row>
@@ -20,6 +21,7 @@
             page="0"
             :ocBean="uo1ocbean"
             key="uo_1"
+            ref="uo_1"
           ></UoZzz0001>
         </v-col>
         <v-col cols="3">
@@ -28,6 +30,7 @@
             page="0"
             :ocBean="uo2ocbean"
             key="uo_2"
+            ref="uo_2"
           ></UoZzz0001>
         </v-col>
       </v-row>
@@ -40,6 +43,7 @@
             page="0"
             :ocBean="uo3ocbean"
             key="uo_3"
+            ref="uo_3"
           ></UoZzz0001>
         </v-col>
         <v-col cols="3">
@@ -48,6 +52,7 @@
             page="0"
             :ocBean="uo4ocbean"
             key="uo_4"
+            ref="uo_4"
           ></UoZzz0001>
         </v-col>
       </v-row>
@@ -61,6 +66,7 @@
             :ocBean="dw1ocbean"
             :dwClmBeanList="dwClmBeanList"
             key="dw_1"
+            ref="dw_1"
           />
         </v-col>
       </v-row>
@@ -104,11 +110,36 @@ export default {
       { headerName: "入社年月日", field: "enterDay" },
       { headerName: "役職", field: "post", editable: true },
     ];
-  },
 
+    // functionの登録
+    let that = this;
+    this.$store.commit("setMenuFunctions", function() { that.search() });
+    this.$store.commit("setMenuFunctions", function() { that.clear() });
+  },
+  
   methods: {
-    search: function () {},
-    clear: function () {},
+    search: function () {
+      console.log("Kaz0101.search");
+
+      let newDataSet = [
+      { empCd: "000001", editName: "Celica", enterDay: "2003/04/01", post: "社長" },
+      { empCd: "000003", editName: "Mondeo", enterDay: "1999/01/01", post: "" },
+      { empCd: "000002", editName: "Boxter", enterDay: "2020/04/01", post: "部長" },
+      { empCd: "000004", editName: "samus", enterDay: "2010/04/01", post: "" },
+    ];
+
+    this.$refs.dw_1.dataSet = newDataSet;
+
+
+    },
+    clear: function () {
+      console.log("Kaz0101.clear");
+      this.$refs.dw_1.dataSet = [];
+      this.$refs.uo_1.clear();
+      this.$refs.uo_2.clear();
+      this.$refs.uo_3.clear();
+      this.$refs.uo_4.clear();
+    },
   },
 };
 </script>

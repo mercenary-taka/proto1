@@ -2,7 +2,7 @@
   <v-navigation-drawer
     app
     clipped
-    :value="isShowMenu"
+    :value="showMenu"
     v-on:transitionend="menuVisibility($event)"
     width="350"
   >
@@ -46,11 +46,13 @@
   </v-navigation-drawer>
 </template>
 <script>
-import { mapGetters } from "vuex";
-
 export default {
-  computed: {
-    ...mapGetters(["isShowMenu", "getMainFrameTabs"]),
+
+  mounted: function () {
+    let that = this;
+    this.$root.$on("showMenuFrame", () => {
+      that.showMenuFrame();
+    });
   },
   methods: {
     /**
@@ -74,18 +76,28 @@ export default {
         }
       }
 
+      // まだ開いていない画面の場合
       if (selectNo === -1) {
-        // 開いていない画面の場合はvuexストアに画面を追加
+        // TODO サーバーから画面情報取得
+
+        // 開いていない画面の場合はvuexストアに画面情報を追加
         this.$store.commit("addMainFrameTabs", e[0]);
+        // TODO 追加する情報いろいろ
+
         selectNo = frameArray.length - 1;
       }
 
       // ツリーメニューを閉じる
-      this.$store.commit("showMenu");
+      this.showMenuFrame();
       // 開いた画面を選択表示する
       this.$root.$emit("selectMainFramePage", selectNo);
       // ツリーの選択状態を解除
       this.active.pop();
+
+    },
+
+    showMenuFrame() {
+      this.showMenu = !this.showMenu;
     },
 
     menuVisibility: function (el) {
@@ -93,21 +105,22 @@ export default {
         var eventClass = el.target.className;
         if (
           eventClass &&
-          this.$store.state.showMenu === true &&
+          this.showMenu === true &&
           eventClass.indexOf("v-navigation-drawer--close") > -1
         ) {
-          this.$store.commit("showMenu");
+          this.showMenuFrame();
         } else if (
           eventClass &&
-          this.$store.state.showMenu === false &&
+          this.showMenu === false &&
           eventClass.indexOf("v-navigation-drawer--open") > -1
         ) {
-          this.$store.commit("showMenu");
+          this.showMenuFrame();
         }
       }
     },
   },
   data: () => ({
+    showMenu: false,
     search: null,
     filter: null,
     active: [],

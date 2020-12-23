@@ -105,6 +105,11 @@ export default {
       console.log(e);
     },
 
+    clear: function() {
+      this.fpo = [];
+
+    },
+
     formatDate(date) {
       if (!date) return null;
 

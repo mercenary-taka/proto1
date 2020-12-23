@@ -34,7 +34,7 @@
 <!--          画面名は{{ item.name }}です。winCdは{{ item.winCd }}です。pgmCdは{{
             item.pgmCd
           }}です。<br />-->
-          <router-view :name="item.winCd"></router-view>
+          <router-view :name="item.winCd" :ref="item.pgmCd" ></router-view>
         </v-tab-item>
       </v-tabs-items>
     </keep-alive>
@@ -48,18 +48,22 @@ export default {
   mounted: function () {
     let that = this;
     this.$root.$on("selectMainFramePage", (arg) => {
-      that.tab = arg;
+      that.selectMainFramePage(arg);
     });
   },
   methods: {
+
     /**
      * ユーザ操作によって選択タブが変更されたとき
      * 引数：選択したタブページ（0から始まる）
      */
     frameTabChange: function (tabPageNo) {
       console.log("tabChange=" + tabPageNo);
+      // TODO ここにメニュー変更処理を追加
+
     },
     selectMainFramePage: function (i) {
+      console.log("selectmainFramePage");
       this.tab = i;
     },
     /**

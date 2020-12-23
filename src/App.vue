@@ -25,6 +25,9 @@ export default {
   },
   data: () => ({
     //
-  })
+  }),
+  mounted: function () {
+    this.$root.$emit("showMenuFrame");
+  },
 };
 </script>

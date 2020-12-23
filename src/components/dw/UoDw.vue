@@ -66,13 +66,6 @@ export default {
         },
       },
   }),
-  beforeMount() {
-    this.dataSet = [
-      { empCd: "000001", editName: "Celica", enterDay: "2003/04/01", post: "社長" },
-      { empCd: "000003", editName: "Mondeo", enterDay: "1999/01/01", post: "" },
-      { empCd: "000002", editName: "Boxter", enterDay: "2020/04/01", post: "部長" },
-    ];
-  },
   methods: {
       /**
        * データが変更されたときに呼ばれる
@@ -83,6 +76,9 @@ export default {
         console.log("dataModelChanged");
         console.log(rowData);
     },
+    setDataSet(dataSet) {
+      this.dataSet = dataSet;
+    }
   },
 };
 </script>

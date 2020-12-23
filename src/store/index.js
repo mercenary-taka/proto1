@@ -6,23 +6,24 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   strict: true,
   state: {
-    // メニュー表示制御
-    showMenu: true,
     // MainFrameに表示している画面
-    mainFrameTabs: []
+    mainFrameTabs: [],
+    // メニュー表示制御 TODO 検証用
+    menuBean:[],
+    // メニューファンクション TODO 検証用
+    menuFunctions: [],
   },
   getters: {
-    isShowMenu(state) {
-      return state.showMenu
-    },
     getMainFrameTabs(state) {
       return state.mainFrameTabs
     },
+    getMenuFunctions(state) {
+      return state.menuFunctions
+
+    },
   },
   mutations: {
-    showMenu(state) {
-      state.showMenu = !state.showMenu
-    },
+
     addMainFrameTabs(state, payload) {
       state.mainFrameTabs.push(payload)
     },
@@ -36,6 +37,9 @@ export default new Vuex.Store({
         }
       }
     },
+    setMenuFunctions(state, payload) {
+      state.menuFunctions.push(payload);
+    }
   },
   actions: {},
   modules: {}

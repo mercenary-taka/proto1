@@ -170,7 +170,7 @@ export default {
      * メニューボタン押下時の処理
      */
     showMenu() {
-      this.$store.commit("showMenu");
+      this.$root.$emit("showMenuFrame");
     },
     screenPrint() {
 
@@ -180,6 +180,8 @@ export default {
     },
     search() {
 
+      var frameArray = this.$store.getters.getMenuFunctions;
+      frameArray[0]();
     },
     recal() {
 
@@ -194,6 +196,8 @@ export default {
 
     },
     clear() {
+      var frameArray = this.$store.getters.getMenuFunctions;
+      frameArray[1]();
 
     },
     cancel() {
