@@ -34,7 +34,7 @@
 <!--          画面名は{{ item.name }}です。winCdは{{ item.winCd }}です。pgmCdは{{
             item.pgmCd
           }}です。<br />-->
-          <router-view :name="item.winCd" :ref="item.pgmCd" ></router-view>
+          <router-view :name="item.winCd" ></router-view>
         </v-tab-item>
       </v-tabs-items>
     </keep-alive>
