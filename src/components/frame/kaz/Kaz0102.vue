@@ -110,6 +110,9 @@ export default {
     let that = this;
     this.$store.commit("setMenuFunctions", function() { that.search() });
     this.$store.commit("setMenuFunctions", function() { that.clear() });
+
+    // menuの登録
+    this.$store.commit("setCurrentMenuBean", "1100001000000");
   },
    
   methods: {
