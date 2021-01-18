@@ -77,6 +77,8 @@
 import UoZzz0001 from "../../uo/UoZzz0001.vue";
 import UoZzz0003 from "../../uo/UoZzz0003.vue";
 import UoDw from "../../dw/UoDw.vue";
+import axios from "axios";
+
 export default {
   components: { UoZzz0001, UoZzz0003, UoDw },
   data: () => ({
@@ -91,8 +93,16 @@ export default {
   /**
    * 画面OPEN時の処理
    */
-  mounted: function () {
+  mounted: async function () {
     // サーバーからセットアップデータを取得し画面とUoに反映
+    await axios.get("http://localhost:8080/serverProto1/KAZ0101/open")
+    .then(response => {
+      console.log("body:", response.data);
+    }).catch(err => {
+      console.log("err:", err);
+    });
+    console.log("mounted");
+
     this.uo1ocbean = {
       objectCd: "uo_1",
       uoType: "A1",
@@ -123,6 +133,14 @@ export default {
   methods: {
     search: function () {
       console.log("Kaz0101.search");
+
+      let gr = {compCd: "TST",pgmCd: "KAZ1010",winCd: "KAZ0101",objectCd: "uo_1",page: 1,statusCd: ["CDB01","",""],wpo: {parameters: ["1","2","3"]}};
+      axios.post("http://localhost:8080/serverProto1/KAZ0101/search", gr)
+    .then(response => {
+      console.log("body:", response.data);
+    }).catch(err => {
+      console.log("err:", err);
+    });
 
       let newDataSet = [
       { empCd: "000001", editName: "Celica", enterDay: "2003/04/01", post: "社長" },
